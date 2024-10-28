@@ -27,8 +27,29 @@
 
 <script type="text/javascript">
 $(function(){
+	$("#btn").click(function() {
+		chkNull();
+	})//btn_click
 	
 } );//ready
+
+function chkNull() {
+	if($("#uploader").val()=="" ){
+		alert("업로더는 필수입력!");
+		$("#uploader").focus();
+		return;
+	}//end if
+	
+	if($("#upfile").val()=="" ){
+		alert("업로드 파일은 필수 입력!");
+		return;
+	}//end if
+	
+	$("#frm").submit();	
+}//chkNull
+
+
+
 </script>
 
 </head>
@@ -37,7 +58,35 @@ $(function(){
 <body>
 
 	<div id="wrap">
-	깃허브 테스트!
+	<!-- 웹 파라메터 전송방식에서 file전송방식으로 변경함. -->
+	<form action="upload_process.jsp" method="post"  id="frm" name="frm">
+	
+	<label>업로더</label>
+	<input type="text" name="uploader" id="uploader"> <br>	
+
+	<label>파일</label>
+	<input type="file" name="upfile" id="upfile"> <br>	
+
+	<input type="button" value="업로드" id="btn" class="btn btn-primary btn-sm"> <br>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</form>
+	
+	
 	</div>
 
 </body>
