@@ -213,6 +213,7 @@ function loginMove(){
 	<%	sVO.setUrl("board_list.jsp"); %>
 	<%= new BoardUtil().pagination(sVO)	%>
 	</div>
+	</div>
 </div>
 </body>
 </html>
