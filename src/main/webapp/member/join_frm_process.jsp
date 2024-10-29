@@ -1,5 +1,7 @@
 <%@page import="kr.co.sist.chipher.DataEncryption"%>
 <%@page import="java.sql.SQLException"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
 <%@page import="kr.co.sist.user.member.MemberDAO"%>
 <%@page import="kr.co.sist.user.member.WebMemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -43,7 +45,10 @@ $(function(){
 
 
 <body>
+<% 
+String processFlag = (String)session.getAttribute("processFlag");
 
+%>
 	<div id="wrap">
 	<div id="header">
 	<c:import url="http://localhost/jsp_prj/common/jsp/header.jsp"/>

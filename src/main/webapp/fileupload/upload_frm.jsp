@@ -3,6 +3,11 @@
     info=""
 %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% 
+//이동한 페이지에서 새로고침을 했을 때, 작업이 여러번 발생하지 않도록 하기 위한 flag값 저장
+session.setAttribute("uploadFlag", false);
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +60,7 @@ function chkNull(){
 	   return;
    }
    */
-   
+/*   
 	const blockExt=["jpg","gif","png","bmp"];
 	var fileName=$("#upfile").val();
 	var fileExt=fileName.substring( fileName.lastIndexOf(".")+1);
@@ -67,13 +72,13 @@ function chkNull(){
 			break;
 		}//end if
 	}//end if
-	
+ 	
 	if( !blockFlag ){
 		alert("업로드 가능 확장자가 아닙니다.");
 		return;
 	}//end if
 	
-   
+    */
    
    
    $("#frm").submit();

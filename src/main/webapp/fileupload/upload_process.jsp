@@ -49,6 +49,14 @@ $(function(){
 요청방식:<%= request.getMethod() %> <br>
 
 <%
+//flag 받기
+boolean uploadFlag = (boolean)session.getAttribute("uploadFlag");
+
+if(! uploadFlag){
+	
+
+
+
 //1.업로드된 파일의 저장 디렉토리 얻기
 File saveDir = new File("C:/dev/workspace/jsp_prj/src/main/webapp/upload");
 
@@ -59,7 +67,8 @@ int uploadSize = 1024*1024*600; //큰 파일도 업로드는 가능하도록 설
 //3. FileUpLoad Component를 생성함-생성과 동시에 업로드가 진행됨.
 
 try{
-MultipartRequest mr = new MultipartRequest(request,saveDir.getAbsolutePath(),uploadSize,"UTF-8",new DefaultFileRenamePolicy());
+MultipartRequest mr = new MultipartRequest(request,saveDir.getAbsolutePath(),
+		uploadSize,"UTF-8",new DefaultFileRenamePolicy());
 //웹 파라메터 받기 (reqeust가 아닌 MultiPartRequest 파일 컴포넌트를 잉요해 파라메터를 받는다.)
 String uploader = mr.getParameter("uploader");
 String[] extArr = mr.getParameterValues("ext");
@@ -77,17 +86,18 @@ File uploadFile = new File(saveDir.getAbsoluteFile()+"/"+fileSysName);
 out.println(uploadFile);
 if(uploadFile.length()>maxSize ){//내가 설정한 최대 크기보다 크다면. 그에대한 처리를 하기위한 코드
  uploadFile.delete();	//업로드된 파일 삭제
-}else{
-	%>
-	
-	<%=originName %> 은 10MByte( <%=maxSize %> byte)를 초과합니다. <br>
+%>	
+ <%=originName %> 은 10MByte( <%=maxSize %> byte)를 초과합니다. <br>
 	업로드 파일의 크기내의 파일로 변환하여 업로드 해주세요 <br>
 	<a href="javascript:history.back()">뒤로</a>
-	 
-	<% 
-	
 
-%>
+
+
+
+
+<% 
+}else{
+	%>
 <h2>파일업로드 성공</h2>
 <div>
 업로더 : <%= uploader %> <br>
@@ -104,9 +114,7 @@ if(uploadFile.length()>maxSize ){//내가 설정한 최대 크기보다 크다�
 <br>
 원본 파일명 : <%=originName %> <br>
 변경된 파일명 :  <%= fileSysName %> <br> 
-
-<img  src="http://localhost/jsp_prj/upload/<%=fileSysName%>">
-<a href="file_list.jsp">파일리스트 보기</a>
+<%-- <img  src="http://localhost/jsp_prj/upload/<%=fileSysName%>">--%>
 </div>
 <%
 }//end else
@@ -117,9 +125,10 @@ if(uploadFile.length()>maxSize ){//내가 설정한 최대 크기보다 크다�
 <% 
 }//end catch
 
-
-
+session.setAttribute("uploadFlag", true);
+}//end if
 %>
+ <a href="file_list.jsp">파일리스트 보기</a>
 
 
 	

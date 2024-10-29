@@ -72,24 +72,61 @@ $(function(){
 	<c:otherwise>
 	<%
 	int ind=0;
+	String fileName="";
 	SimpleDateFormat sdf= new SimpleDateFormat("yyyy-mm-dd EEEE HH:mm:ss");
 	for(File tempFile:listFile){%> 
 		<tr>
 		<td> <%= ++ind %></td>
 		<td> 
-		<img src="../upload/<%= tempFile.getName() %>" style="width:100px; height:50px;">
-			
-		</td>
 		
-		<td><%=tempFile.getName() %></td>
+<%-- 		<img src="../upload/<%= tempFile.getName() %>" style="width:100px; height:50px;">
+ --%>			 
+		</td>
+		<!-- 확장자가 jpg,gif,png,bmp,txt,js,css,html인 경우에는 링크를 설정하여
+			웹 브라우저에서 보이도록 설정하기
+			
+		  -->
+		<% fileName=tempFile.getName();
+		String[] ext = {"jpg","gif","png","bmp","txt","js","css","html"};
+		pageContext.setAttribute("ext",ext);
+		
+		String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+		boolean tempFlag=false;
+		
+		for(String temp : ext){
+			if(temp.equals(fileExt)){
+				tempFlag=true;
+				break;
+			}//end if
+		}//end for
+		pageContext.setAttribute("tempFlag",tempFlag);
+
+		
+		%>
+		<c:choose>
+		<c:when test="${tempFlag}">
+		 <td>  <%=fileName %>    (<a href="../upload/<%= fileName %>">  미리보기</a>  ) </td>
+		 <td><%=tempFile.length() %></td>
+    	 <td><%= sdf.format(new Date(tempFile.lastModified())) %></td>
+		 
+		</c:when>
+		
+		
+		<c:otherwise>
+			
+		<td> <%=fileName %>  (<a href="download.jsp?fileName=<%= tempFile.getName() %>"><%=tempFile.getName() %> </a>  )</td>
 		<td><%=tempFile.length() %></td>
 		<td><%= sdf.format(new Date(tempFile.lastModified())) %></td>
+		</c:otherwise>		
 		
+		</c:choose>
 		</tr>
 		
 		<%}//end for%>
 	</c:otherwise>
 	</c:choose>
+	
+	
 	</tbody>
 	
 	</table>
