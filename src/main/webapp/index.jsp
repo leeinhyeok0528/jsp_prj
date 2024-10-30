@@ -56,6 +56,13 @@ $(function(){
 
 	<a href="http://localhost/jsp_prj/board/board_list.jsp">게시판</a>
 
+
+<%
+
+
+%>
+
+	
 	</div>
 
 </body>

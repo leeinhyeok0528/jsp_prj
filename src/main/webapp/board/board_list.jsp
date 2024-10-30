@@ -65,7 +65,7 @@ function loginMove(){
 	}//end ifS
 }//loginMove
 
-</script>
+</script> 
 </head>
 <body>
 <div id="wrap">

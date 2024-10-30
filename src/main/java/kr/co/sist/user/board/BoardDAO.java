@@ -1,7 +1,6 @@
 package kr.co.sist.user.board;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,8 +81,8 @@ public class BoardDAO {
 	}//selectTotalCount
 	
 	public List<BoardVO> selectBoard( SearchVO sVO )throws SQLException{
-		List<BoardVO> list=new ArrayList<BoardVO>();
 		
+		List<BoardVO> list=new ArrayList<BoardVO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
