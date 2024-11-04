@@ -301,10 +301,19 @@ public class BoardDAO {
 			con=dbCon.getConn();
 			//쿼리문 생성객체 얻기
 			StringBuilder deleteBoard=new StringBuilder();
-			deleteBoard
-			.append("	delete from	board	")
-			.append("	where	num=? and writer=?");
+			/*
+			 * deleteBoard .append("	delete from	board	")
+			 * .append("	where	num=? and writer=?");
+			 */
 			
+			//댓글이 존재하지 않으면 삭제한다,
+			//모든 댓그르이 소유권이 작성자에게 있으면 ㅌ체이블 생성시 on delete cascade옵션을 사용함
+			
+			//댓글의 소유권이 원글 작성자에게 없을 때에는 update 수행
+			deleteBoard
+			.append("update")
+			.append("set subject ='삭제된 글입니다',content='사용자에 의해 삭제 된 글입니다 ',writer='N/A'")
+			.append("where num=? and writer=?");
 			pstmt=con.prepareStatement(deleteBoard.toString());
 			//바인드 변수에 값 설정
 			pstmt.setInt(1,bVO.getNum());
